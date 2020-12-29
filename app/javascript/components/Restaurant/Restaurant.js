@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import Header from "./Header";
 import ReviewForm from "./ReviewForm";
+import Review from "./Review";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -46,22 +47,26 @@ const Restaurant = (props) => {
   const handleChange = (e) => {
     e.preventDefault();
     setReview(Object.assign({}, review, { [e.target.name]: e.target.value }));
+
+    console.log("review:", review);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const csrfToken = document.querySelector("[name=csrf-token").content;
+    const csrfToken = document.querySelector("[name=csrf-token]").content;
     axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
 
-    const restaurant_id = restaurant.data.id;
+    const restaurant_id = parseInt(restaurant.data.id);
     axios
-      .post("/api/v1/reviews", { review, restaurant_id })
+      .post("/api/v1/reviews", { ...review, restaurant_id })
       .then((resp) => {
-        const included = [...restaurant.included, resp.data];
+        const included = [...restaurant.included, resp.data.data];
         setRestaurant({ ...restaurant, included });
         setReview({ title: "", description: "", score: 0 });
       })
-      .catch((resp) => {});
+      .catch((resp) => {
+        console.log(resp);
+      });
   };
 
   const setRating = (score, e) => {
@@ -69,6 +74,13 @@ const Restaurant = (props) => {
 
     setReview({ ...review, score });
   };
+
+  let reviews;
+  if (loaded && restaurant.included) {
+    reviews = restaurant.included.map((item, index) => {
+      return <Review key={index} attributes={item.attributes} />;
+    });
+  }
 
   return (
     <Wrapper>
@@ -80,11 +92,12 @@ const Restaurant = (props) => {
                 attributes={restaurant.data.attributes}
                 reviews={restaurant.included}
               />
-              <div className="reviews"></div>
+              {reviews}
             </Main>
           </Column>
           <Column>
             <ReviewForm
+              key={restaurant.data.attributes.name}
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               setRating={setRating}

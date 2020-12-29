@@ -104,7 +104,7 @@ const Headline = styled.div`
 
 const RatingTitle = styled.div`
   font-size: 20px;
-  padding-bottom: 20px'
+  padding-bottom: 20px;
   font-weight: bold;
 `;
 
