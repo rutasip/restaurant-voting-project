@@ -7,9 +7,6 @@ const Card = styled.div`
   border: 1px solid #efefef;
   background: #fff;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 30px;
 `;
 
@@ -43,8 +40,6 @@ const LinkWrapper = styled.div`
 `;
 
 const Restaurant = (props) => {
-  const average_score = parseFloat(props.attributes.avg_score / 100);
-
   return (
     <Card>
       <RestaurantLogo>
