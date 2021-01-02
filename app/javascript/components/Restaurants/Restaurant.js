@@ -48,7 +48,7 @@ const Restaurant = (props) => {
       <RestaurantName>{props.attributes.name}</RestaurantName>
       <Rating score={props.attributes.avg_score} />
       <LinkWrapper>
-        <Link to={`/restaurants/${props.attributes.slug}`}>Atsiliepimai</Link>
+        <Link to={`/restoranas/${props.attributes.slug}`}>Atsiliepimai</Link>
       </LinkWrapper>
     </Card>
   );
