@@ -21,21 +21,26 @@ restaurants = Restaurant.create([
     }
   ])
 
-reviews = Review.create([
-    { 
-        title: 'Puikus restoranas',
-        description: 'Labai skaniai pavalgėm',
-        score: 5,
-        restaurant: restaurants.first 
-    },
-    { 
-        title: 'Neskani lazanija',
-        description: 'Man nepatiko',
-        score: 1,
-        restaurant: restaurants.first 
-    } 
-])
+# reviews = Review.create([
+#     { 
+#         title: 'Puikus restoranas',
+#         description: 'Labai skaniai pavalgėm',
+#         score: 5,
+#         restaurant: restaurants.first 
+#     },
+#     { 
+#         title: 'Neskani lazanija',
+#         description: 'Man nepatiko',
+#         score: 1,
+#         restaurant: restaurants.first 
+#     } 
+# ])
 
 2.times do |i|
   User.create(email: "user-#{i+1}@example.com", password: "password", password_confirmation: "password")
+end
+
+User.all.each do |u|
+  u.reviews.create(title: "Puikus restoranas", description: 'Labai skaniai pavalgėm', score: 5, restaurant: restaurants.first )
+  u.reviews.create(title: "Neskani lazanija", description: 'Man nepatiko', score: 1, restaurant: restaurants.first )
 end
