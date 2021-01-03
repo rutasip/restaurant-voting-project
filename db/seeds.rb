@@ -12,20 +12,12 @@ restaurants = Restaurant.create([
       image_url: "https://berneliuuzeiga.lt/wp-content/uploads/2020/01/BERNELIU_UZEIGA_head.png" 
     }, 
     { 
-      name: "Grill London",
-      image_url: "http://grilllondon.lt/wp-content/themes/londongrill/dist/images/logo.png" 
-    }, 
-    { 
       name: "Bokštas",
       image_url: "http://www.bajorukiemas.lt/wp-content/uploads/2019/03/BOKŠTO-logotipas.png" 
     }, 
     { 
       name: "Piccola Italia",
       image_url: "https://www.piccolaitalia.lt/wp-content/uploads/2018/12/ristorante_piccola_italia_logo-2-300x260.png" 
-    },
-    { 
-      name: "Pas Prancišką",
-      image_url: "http://www.paspranciska.lt/wp-content/uploads/2016/09/logo_w.png" 
     }
   ])
 
@@ -43,3 +35,7 @@ reviews = Review.create([
         restaurant: restaurants.first 
     } 
 ])
+
+2.times do |i|
+  User.create(email: "user-#{i+1}@example.com", password: "password", password_confirmation: "password")
+end
