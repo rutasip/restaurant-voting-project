@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  authenticated :user do
+    root "pages#my_restaurants", as: :authenticated_root
+  end
   root 'pages#index'
 
   namespace :api do
