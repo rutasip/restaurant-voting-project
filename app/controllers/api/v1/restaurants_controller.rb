@@ -44,12 +44,12 @@ class Api::V1::RestaurantsController < ApplicationController
     end
 
     private
+    
+        def restaurant_params
+            params.require(:restaurant).permit(:name, :image_url)
+        end
 
-    def restaurant_params
-        params.require(:restaurant).permit(:name, :image_url)
-    end
-
-    def options
-        @options ||= { include: %i[reviews] }
-    end
+        def options
+            @options ||= { include: %i[reviews] }
+        end
 end

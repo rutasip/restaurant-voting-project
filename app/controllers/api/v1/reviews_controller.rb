@@ -78,6 +78,7 @@ class Api::V1::ReviewsController < ApplicationController
     end
 
     private
+
         def restaurant
             @restaurant ||= Restaurant.find(params[:restaurant_id])
         end
@@ -92,9 +93,9 @@ class Api::V1::ReviewsController < ApplicationController
 
         def handle_unauthorized
             unless authorized?
-            respond_to do |format|
-                format.json { render :unauthorized, status: 401 }
-            end
+                respond_to do |format|
+                    format.json { render :unauthorized, status: 401 }
+                end
             end
         end
 
