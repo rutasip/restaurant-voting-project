@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   end
   root 'pages#index'
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :restaurants, param: :slug
-      resources :reviews, only: [:create, :destroy]
+      resources :reviews, only: [:index, :show, :create, :update, :destroy]
     end
   end
 
