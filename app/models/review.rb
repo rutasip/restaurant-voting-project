@@ -4,5 +4,6 @@ class Review < ApplicationRecord
   belongs_to :restaurant
   belongs_to :user
 
+  # TODO: add more validations?
   validates :title, presence: true
 end
