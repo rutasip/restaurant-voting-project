@@ -5,6 +5,7 @@ import Reviews from "./Reviews";
 import Review from "./Review";
 import ReviewForm from "./ReviewForm";
 import Spinner from "./Spinner";
+import ErrorMessage from "./ErrorMessage";
 
 class ReviewsApp extends React.Component {
   constructor(props) {
@@ -12,9 +13,12 @@ class ReviewsApp extends React.Component {
     this.state = {
       reviews: [],
       isLoading: true,
+      errorMessage: null,
     };
     this.getReviews = this.getReviews.bind(this);
     this.createReview = this.createReview.bind(this);
+    this.handleErrors = this.handleErrors.bind(this);
+    this.clearErrors = this.clearErrors.bind(this);
   }
 
   componentDidMount() {
@@ -25,6 +29,7 @@ class ReviewsApp extends React.Component {
     axios
       .get("/api/v1/reviews")
       .then((response) => {
+        this.clearErrors();
         this.setState({ isLoading: true });
         const reviews = response.data;
         this.setState({ reviews });
@@ -32,7 +37,11 @@ class ReviewsApp extends React.Component {
       })
       .catch((error) => {
         this.setState({ isLoading: true });
-        console.log(error);
+        this.setState({
+          errorMessage: {
+            message: "Įvyko klaida kraunant atsiliepimus...",
+          },
+        });
       });
   }
 
@@ -41,18 +50,36 @@ class ReviewsApp extends React.Component {
     this.setState({ reviews });
   }
 
+  handleErrors(errorMessage) {
+    this.setState({ errorMessage });
+  }
+  clearErrors() {
+    this.setState({
+      errorMessage: null,
+    });
+  }
+
   render() {
     return (
       <>
+        {this.state.errorMessage && (
+          <ErrorMessage errorMessage={this.state.errorMessage} />
+        )}
         {!this.state.isLoading && (
           <>
-            <ReviewForm createReview={this.createReview} />
+            <ReviewForm
+              createReview={this.createReview}
+              handleErrors={this.handleErrors}
+              clearErrors={this.clearErrors}
+            />
             <Reviews>
               {this.state.reviews.map((review) => (
                 <Review
                   key={review.id}
                   review={review}
                   getReviews={this.getReviews}
+                  handleErrors={this.handleErrors}
+                  clearErrors={this.clearErrors}
                 />
               ))}
             </Reviews>

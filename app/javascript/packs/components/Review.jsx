@@ -49,9 +49,11 @@ class Review extends React.Component {
           // rating: this.ratingRef.current.checked
         },
       })
-      .then((response) => {})
+      .then((response) => {
+        this.props.clearErrors();
+      })
       .catch((error) => {
-        console.log(error);
+        this.props.handleErrors(error);
       });
   }, 1000);
 
@@ -120,4 +122,5 @@ export default Review;
 Review.propTypes = {
   review: PropTypes.object.isRequired,
   getReviews: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };

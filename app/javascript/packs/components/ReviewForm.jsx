@@ -28,9 +28,10 @@ class ReviewForm extends React.Component {
       .then((response) => {
         const review = response.data;
         this.props.createReview(review);
+        this.props.clearErrors();
       })
       .catch((error) => {
-        console.log(error);
+        this.props.handleErrors(error);
       });
     e.target.reset();
   }
@@ -98,4 +99,6 @@ export default ReviewForm;
 
 ReviewForm.propTypes = {
   createReview: PropTypes.func.isRequired,
+  handleErrors: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };
