@@ -6,7 +6,14 @@ import setAxiosHeaders from "./AxiosHeaders";
 class Review extends React.Component {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   rating: this.props.review.rating
+    // };
     this.handleDestroy = this.handleDestroy.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.updateReview = this.updateReview.bind(this);
+    this.inputRef = React.createRef();
+    // this.ratingRef = React.createRef();
     this.path = `/api/v1/reviews/${this.props.review.id}`;
   }
 
@@ -25,6 +32,25 @@ class Review extends React.Component {
     }
   }
 
+  handleChange() {
+    this.updateReview();
+  }
+  updateReview() {
+    // this.setState({ rating: this.ratingRef.current.checked });
+    setAxiosHeaders();
+    axios
+      .put(this.path, {
+        review: {
+          title: this.inputRef.current.value,
+          // rating: this.ratingRef.current.checked
+        },
+      })
+      .then((response) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   render() {
     const { review } = this.props;
     return (
@@ -33,6 +59,8 @@ class Review extends React.Component {
           <input
             type="text"
             defaultValue={review.title}
+            onChange={this.handleChange}
+            ref={this.inputRef}
             className="form-control"
             id={`review__title-${review.id}`}
           />
@@ -54,6 +82,23 @@ class Review extends React.Component {
           />
         </td>
         <td className="text-right">
+          {/* <div className="form-check form-check-inline">
+            <input
+              type="boolean"
+              defaultChecked={this.state.rating}
+              type="checkbox"
+              onChange={this.handleChange}
+              ref={this.ratingRef}
+              className="form-check-input"
+              id={`rating-${review.id}`}
+            />
+            <label
+              className="form-check-label"
+              htmlFor={`rating-${review.id}`}
+            >
+              Įvertinimas
+            </label>
+          </div> */}
           <button
             onClick={this.handleDestroy}
             className="btn btn-outline-danger"
