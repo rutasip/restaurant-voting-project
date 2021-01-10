@@ -1,7 +1,7 @@
-Backend - Ruby on rails
-Frontend - React, Bootstrap
-Database - PostgreSQL
-Authentification - Devise
+Backend - Ruby on rails<br />
+Frontend - React, Bootstrap<br />
+Database - PostgreSQL<br />
+Authentification - Devise<br />
 
 In home page users can see a list of restaurants and their average rating (calculated from all reviews average)<br />
 ![Home Screenshot][home-screenshot]
@@ -35,8 +35,8 @@ Users get redirected to their profile page after registration.<br />
 [home-screenshot]: demo_images/home.png
 [login-screenshot]: demo_images/login.png
 [logged-in-screenshot]: demo_images/logged_in.png
-[restaurant-review-screenshot]: demo_images/restaurant_review.png
-[delete-preview-screenshot]: demo_images/delete_preview.png
+[restaurant-review-screenshot]: demo_images/restaurant_reviews.png
+[delete-review-screenshot]: demo_images/delete_review.png
 [deleted-screenshot]: demo_images/deleted.png
 [signed-out-screenshot]: demo_images/signed_out.png
 [register-screenshot]: demo_images/register.png
