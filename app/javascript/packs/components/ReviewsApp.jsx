@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import Reviews from "./Reviews";
 import Review from "./Review";
+import ReviewForm from "./ReviewForm";
 
 class ReviewsApp extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ReviewsApp extends React.Component {
       reviews: [],
     };
     this.getReviews = this.getReviews.bind(this);
+    this.createReview = this.createReview.bind(this);
   }
 
   componentDidMount() {
@@ -29,13 +31,25 @@ class ReviewsApp extends React.Component {
       });
   }
 
+  createReview(review) {
+    const reviews = [review, ...this.state.reviews];
+    this.setState({ reviews });
+  }
+
   render() {
     return (
-      <Reviews>
-        {this.state.reviews.map((review) => (
-          <Review key={review.id} review={review} />
-        ))}
-      </Reviews>
+      <>
+        <ReviewForm createReview={this.createReview} />
+        <Reviews>
+          {this.state.reviews.map((review) => (
+            <Review
+              key={review.id}
+              review={review}
+              getReviews={this.getReviews}
+            />
+          ))}
+        </Reviews>
+      </>
     );
   }
 }
